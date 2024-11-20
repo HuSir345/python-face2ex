@@ -2,30 +2,14 @@
     "version": 2,
     "builds": [
         {
-            "src": "api/index.py",
-            "use": "@vercel/python",
-            "config": {
-                "maxLambdaSize": "15mb",
-                "runtime": "python3.9"
-            }
-        },
-        {
-            "src": "app/static/**",
-            "use": "@vercel/static"
+            "src": "app.py",
+            "use": "@vercel/python"
         }
     ],
     "routes": [
         {
-            "src": "/static/(.*)",
-            "dest": "/app/static/$1"
-        },
-        {
             "src": "/(.*)",
-            "dest": "/api/index.py"
+            "dest": "app.py"
         }
-    ],
-    "env": {
-        "FLASK_APP": "api/index.py",
-        "FLASK_ENV": "production"
-    }
+    ]
 } 
