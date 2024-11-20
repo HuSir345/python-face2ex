@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face2Ex - AI 人脸替换</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .upload-button {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.3s ease;
+        }
+        
+        .upload-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        .action-button {
+            background: #0071e3;
+            transition: all 0.3s ease;
+        }
+        
+        .action-button:hover {
+            background: #0077ed;
+        }
+        
+        .action-button:disabled {
+            background: #999999;
+        }
+        
+        .progress-bar {
+            background: linear-gradient(90deg, #0071e3 0%, #40a9ff 100%);
+        }
+        
+        .download-button {
+            background: #2d2d2d;
+            transition: all 0.3s ease;
+        }
+        
+        .download-button:hover {
+            background: #3d3d3d;
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <div class="container mx-auto px-4 py-12 max-w-5xl">
+        <!-- 标题区域 -->
+        <div class="text-center mb-16">
+            <h1 class="text-5xl font-bold mb-4">Face2Ex</h1>
+            <p class="text-xl text-gray-400">使用 AI 技术，让换脸更简单</p>
+        </div>
+        
+        <!-- 上传区域 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+            <div class="upload-section">
+                <button type="button" id="uploadPic1" class="upload-button w-full h-64 rounded-2xl flex flex-col items-center justify-center border-2 border-gray-700 hover:border-gray-500">
+                    <svg class="w-12 h-12 mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    <span class="text-lg">上传人脸图片</span>
+                    <span class="text-sm text-gray-400 mt-2">点击或拖拽上传</span>
+                </button>
+                <input type="file" id="pic1Input" class="hidden" accept="image/*">
+            </div>
+            
+            <div class="upload-section">
+                <button type="button" id="uploadPic2" class="upload-button w-full h-64 rounded-2xl flex flex-col items-center justify-center border-2 border-gray-700 hover:border-gray-500">
+                    <svg class="w-12 h-12 mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                    </svg>
+                    <span class="text-lg">上传被替换图片</span>
+                    <span class="text-sm text-gray-400 mt-2">点击或拖拽上传</span>
+                </button>
+                <input type="file" id="pic2Input" class="hidden" accept="image/*">
+            </div>
+        </div>
+
+        <!-- 操作按钮 -->
+        <div class="text-center mb-12">
+            <button type="button" id="swapButton" class="action-button text-white px-12 py-4 rounded-full text-lg font-medium disabled:cursor-not-allowed">
+                开始替换
+            </button>
+        </div>
+
+        <!-- 进度条 -->
+        <div id="progressContainer" class="max-w-2xl mx-auto mb-12 hidden">
+            <div class="w-full bg-gray-800 rounded-full h-1.5">
+                <div id="progressBar" class="progress-bar h-1.5 rounded-full" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- 结果展示 -->
+        <div id="resultContainer" class="hidden">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl font-bold mb-2">替换完成</h2>
+                <p class="text-gray-400">AI 为您打造完美人像</p>
+            </div>
+            
+            <div class="bg-gray-900 rounded-2xl p-6 mb-8">
+                <img id="resultImage" class="w-full rounded-xl shadow-2xl" src="" alt="替换结果">
+            </div>
+            
+            <div class="text-center">
+                <a id="downloadButton" href="#" download class="download-button inline-block text-white px-8 py-3 rounded-full hover:bg-gray-700">
+                    下载图片
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 确保在 body 末尾引入 JavaScript 文件 -->
+    <script defer src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html> 
